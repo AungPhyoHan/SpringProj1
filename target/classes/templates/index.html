@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Project One</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <h1>Welcome to My Spring Project One</h1>
+        <p>
+          Hello,I am AungPhyoHan.This project is to provide CRUD without DB.
+        </p>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="col-md-6">
+        <!-- form -->
+        <form action="/add" method="post" th:object="${personObj}">
+          <div class="form-group">
+            <label class="form-label" for="name">NAME</label>
+            <input
+              type="text"
+              name="name"
+              class="form-control"
+              th:value="*{name}"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="name">AGE</label>
+            <input
+              type="text"
+              name="name"
+              class="form-control"
+              th:value="*{age}"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="name">WORK</label>
+            <select class="form-control" name="work" th:value="*{work}">
+              <option value="IT">IT</option>
+              <option value="Mechanic">Mechanic</option>
+              <option value="Hotel">Hotel</option>
+              <option value="GeneralWorker">General Worker</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <input
+              type="submit"
+              class="btn"
+              style="background-color: gold"
+              value="ADD NEW"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="col-md-6">
+        <!--- table -->
+        <table class="table">
+          <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>AGE</th>
+            <th>WORK</th>
+            <th>DATE</th>
+          </tr>
+          <tr th:each="item:${data}">
+            <td th:text="${item.id}"></td>
+            <td th:text="${item.name}"></td>
+            <td th:text="${item.age}"></td>
+            <td th:text="${item.work}"></td>
+            <td th:text="${item.createdAt}"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
