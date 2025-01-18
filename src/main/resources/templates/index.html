@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="container-fluid">
-      <div class="col-md-6">
+      <div class="col-md-6" th:if="${flag}">
         <!-- form -->
         <form action="/add" method="post" th:object="${personObj}">
           <div class="form-group">
@@ -37,7 +37,7 @@
             <label class="form-label" for="name">AGE</label>
             <input
               type="text"
-              name="name"
+              name="age"
               class="form-control"
               th:value="*{age}"
             />
@@ -61,6 +61,56 @@
           </div>
         </form>
       </div>
+      <div class="col-md-6" th:unless="${flag}">
+        <!-- form -->
+        <form action="/edit" method="post" th:object="${personObj}">
+          <input type="hidden" name="id" th:value="*{id}" />
+          <div class="form-group">
+            <label class="form-label" for="name">NAME</label>
+            <input
+              type="text"
+              name="name"
+              class="form-control"
+              th:value="*{name}"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="name">AGE</label>
+            <input
+              type="text"
+              name="age"
+              class="form-control"
+              th:value="*{age}"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="name">WORK</label>
+            <select class="form-control" name="work" th:value="*{work}">
+              <option th:value="IT" th:selected="(*{work} == 'IT')">IT</option>
+              <option th:value="Mechanic" th:selected="(*{work} == 'Mechanic')">
+                Mechanic
+              </option>
+              <option th:value="Hotel" th:selected="(*{work} == 'Hotel')">
+                Hotel
+              </option>
+              <option
+                th:value="GeneralWorker"
+                th:selected="(*{work} == 'GeneralWorker')"
+              >
+                General Worker
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <input
+              type="submit"
+              class="btn"
+              style="background-color: orange"
+              value="UPDATE"
+            />
+          </div>
+        </form>
+      </div>
       <div class="col-md-6">
         <!--- table -->
         <table class="table">
@@ -70,6 +120,7 @@
             <th>AGE</th>
             <th>WORK</th>
             <th>DATE</th>
+            <th>Option</th>
           </tr>
           <tr th:each="item:${data}">
             <td th:text="${item.id}"></td>
@@ -77,6 +128,28 @@
             <td th:text="${item.age}"></td>
             <td th:text="${item.work}"></td>
             <td th:text="${item.createdAt}"></td>
+            <td>
+              <div class="row">
+                <div class="col-md-12">
+                  <a
+                    th:href="@{/{id}(id=${item.id})}"
+                    class="btn"
+                    style="
+                      background-color: orange;
+                      margin-right: 10px;
+                      color: black;
+                    "
+                    >UPDATE</a
+                  >
+                  <a
+                    href=""
+                    class="btn"
+                    style="background-color: maroon; color: white"
+                    >DELETE</a
+                  >
+                </div>
+              </div>
+            </td>
           </tr>
         </table>
       </div>
