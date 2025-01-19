@@ -3,15 +3,16 @@ package com.aph.spring.proj1.springproj1.controller;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.aph.spring.proj1.springproj1.model.Person;
-
 
 @Controller
 public class personController {
@@ -22,10 +23,19 @@ public class personController {
 
     @RequestMapping(value="/",method = RequestMethod.GET)
     public ModelAndView index(@ModelAttribute("personObj") Person person,ModelAndView mav){
-        personList.forEach(System.out::println);
+        //personList.forEach(System.out::println);
         mav.addObject("flag", flag);
         mav.addObject("data", personList);
         mav.setViewName("index");
+        return mav;
+    }
+    
+    @RequestMapping(value="/back", method=RequestMethod.GET)
+    public ModelAndView cancelAndBack(ModelAndView mav,@ModelAttribute("personObj") Person person){
+        flag = true;
+        mav.addObject("flag", flag);
+        mav.addObject("data", personList);
+        mav.setViewName("redirect:/");
         return mav;
     }
 
@@ -76,6 +86,29 @@ public class personController {
         personList.set(person.getId()-1,p);
         System.out.println("Successfully,updated data.");
         mav.addObject("flag",flag);
+        mav.setViewName("redirect:/");
+        return mav;
+    }
+
+    @RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
+    public ModelAndView getDelete(ModelAndView mav,@PathVariable("id") int id){
+        Optional<Person>p = personList.stream().filter(item -> item.getId() == id).findFirst();
+        mav.addObject("person", p.get());
+        mav.setViewName("delete");
+        return mav;
+    }
+
+    @RequestMapping(value = "/delete", method=RequestMethod.POST)
+    public ModelAndView postDelete(ModelAndView mav,@RequestParam int id) {
+        int index = -1;
+        for(Person p:personList){
+            index += 1;
+            if(p.getId() == id){
+                break;
+            }
+        }
+        personList.remove(index);
+        System.out.println("Successfully removed"+String.valueOf(index));
         mav.setViewName("redirect:/");
         return mav;
     }

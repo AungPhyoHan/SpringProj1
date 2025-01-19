@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpringProj1</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+          <h1>Welcome to My Spring Project One</h1>
+          <p>
+            Hello,I am AungPhyoHan.This project is to provide CRUD without DB.
+          </p>
+        </div>
+      </div>
+      <div class="container mt-8 justify-content-center">
+        <form action="/delete" method="post" th:object="${person}">
+            <input type="hidden" name="id" th:value="*{id}" />
+            <ul>
+                <li class="h3" th:text="*{name}"></li>
+                <li class="h3" th:text="*{age}"></li>
+                <li class="h3" th:text="*{work}"></li>
+                <li class="h3" th:text="*{createdAt}"></li>
+            </ul>
+            <div class="form-group"><input type="submit" value="DELETE" class="btn" style="background-color: maroon;color: white;" />
+            <a th:href="@{/back}" class="btn" style="background-color: gray;color:black">BACK</a></div>
+        </form>
+      </div>
+</body>
+</html>
