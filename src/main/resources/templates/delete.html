@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpringProj1</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body style="background-color: honeydew;">
+    <div class="container">
+      <div class="jumbotron">
+        <center><h2><b>Welcome to My Spring Project One</b></h2></center><br />
+        <p style="font-size: 16;">
+          Hello,I am AungPhyoHan.This project is to provide CRUD without DB.
+          <br />
+          <i style="font-size: 14px;">This product includes a LinkedList that provides CRUD,person Model and A controller that includes a lot of different endpoints.</i>
+        </p>
+      </div>
+    </div>
+      <div class="container mt-8 justify-content-center">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form action="/delete" method="post" th:object="${person}">
+                <input type="hidden" name="id" th:value="*{id}" />
+                <ul class="list-group">
+                    <li class="h3 list-group-item" th:text="*{name}"></li>
+                    <li class="h3 list-group-item" th:text="*{age}"></li>
+                    <li class="h3 list-group-item" th:text="*{work}"></li>
+                    <li class="h3 list-group-item" th:text="*{createdAt}"></li>
+                </ul>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="submit" value="DELETE" class="btn form-control" style="background-color: brown;color: white;" />
+                    </div>
+                    <div class="col-md-6">
+                        <a th:href="@{/back}" class="btn form-control" style="background-color: gray;color:black">BACK</a>
+                    </div>
+            </div>
+            </form>
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+</body>
+</html>
