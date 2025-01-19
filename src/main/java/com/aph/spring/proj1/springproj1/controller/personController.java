@@ -73,8 +73,7 @@ public class personController {
         p.setAge(person.getAge());
         p.setWork(person.getWork());
         p.setCreatedAt(createdDate);
-        personList.remove(person.getId());
-        personList.add(p);
+        personList.set(person.getId()-1,p);
         System.out.println("Successfully,updated data.");
         mav.addObject("flag",flag);
         mav.setViewName("redirect:/");
