@@ -17,10 +17,13 @@ import com.aph.spring.proj1.springproj1.model.Person;
 @Controller
 public class personController {
     
+    // Update Form Flag
     private boolean flag = true;
 
+    // All Person Objects are store in it
     private LinkedList<Person> personList = new LinkedList<>();
 
+    // index
     @RequestMapping(value="/",method = RequestMethod.GET)
     public ModelAndView index(@ModelAttribute("personObj") Person person,ModelAndView mav){
         //personList.forEach(System.out::println);
@@ -30,6 +33,7 @@ public class personController {
         return mav;
     }
     
+    // cancel and back
     @RequestMapping(value="/back", method=RequestMethod.GET)
     public ModelAndView cancelAndBack(ModelAndView mav,@ModelAttribute("personObj") Person person){
         flag = true;
@@ -39,6 +43,7 @@ public class personController {
         return mav;
     }
 
+    // add
     @RequestMapping(value = "/add", method=RequestMethod.POST)
     public ModelAndView addNew(ModelAndView mav,@ModelAttribute("personObj") Person person) {
         // DateTime 
@@ -58,6 +63,7 @@ public class personController {
         return mav;
     }
 
+    // get information based on Id to update data
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     public ModelAndView showEdit(@ModelAttribute("personObj") Person person,@PathVariable("id") int id,ModelAndView mav){
         flag = false;
@@ -68,6 +74,7 @@ public class personController {
         return mav;
     }
 
+    // update
     @RequestMapping(value = "/edit",method = RequestMethod.POST)
     public ModelAndView updatePerson(ModelAndView mav,@ModelAttribute("personObj") Person person){
         flag = true;
@@ -90,6 +97,7 @@ public class personController {
         return mav;
     }
 
+    // get information based on id to delete data
     @RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
     public ModelAndView getDelete(ModelAndView mav,@PathVariable("id") int id){
         Optional<Person>p = personList.stream().filter(item -> item.getId() == id).findFirst();
@@ -98,6 +106,7 @@ public class personController {
         return mav;
     }
 
+    // delete
     @RequestMapping(value = "/delete", method=RequestMethod.POST)
     public ModelAndView postDelete(ModelAndView mav,@RequestParam int id) {
         int index = -1;
